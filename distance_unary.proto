@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+
+service DistanceService{
+ // unary services just give a single response
+ rpc geodesic_distance(SourceDest) returns (Distance) {}
+}
+
+message SourceDest{
+ float source_latitude = 1;
+ float source_longitude = 2;
+ float destination_latitude = 3;
+ float destination_longitude = 4;
+}
+
+message Distance{
+ float distance = 1;
+ string method = 2;
+ string unit = 3;
+}
