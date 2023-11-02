@@ -23,12 +23,3 @@ class Distance:
             ((self.destination.__dict__())["latitude"],
              (self.destination.__dict__()["longitude"]))
         ).nautical
-
-
-#print(
-#    Distance(
-#        Position(-33.0351516, -71.5955963, None),
-#        Position(-33.0348327, -71.5980458, None)
-#    ).km()
-#)
-
