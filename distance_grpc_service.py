@@ -8,12 +8,18 @@ from helpers import Distance
 
 class DistanceServicer(pb2_grpc.DistanceServiceServicer):
     def geodesic_distance(self, request, context):
-        distance = Distance(
-                Position(request.source_latitude, request.source_longitude, None),
-                Position(request.destination_latitude, request.destination_longitude, None)
-        ).km()
+        if request.unit == "km":
+            distance = Distance(
+                    Position(request.source.latitude, request.source.longitude, request.source.altitude),
+                    Position(request.destination.latitude, request.destination.longitude, request.destination.altitude)
+            ).km()
+        if request.unit == "nm":
+            distance = Distance(
+                Position(request.source.latitude, request.source.longitude, request.source.altitude),
+                Position(request.destination.latitude, request.destination.longitude, request.destination.altitude)
+            ).nautical()
 
-        response_map = {"distance": distance, "method": "geodesic", "unit": "km"}
+        response_map = {"distance": distance, "method": "geodesic", "unit": str(request.unit)}
 
         return pb2.Distance(**response_map)
 
