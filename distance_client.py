@@ -7,8 +7,16 @@ import json
 if __name__ == '__main__':
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = pb2_grpc.DistanceServiceStub(channel)
-        message = pb2.SourceDest(source_latitude=-33.0351516, source_longitude=-71.5955963,
-                                 destination_latitude=-33.0348327, destination_longitude=-71.5980458)
+
+        message = pb2.SourceDest(
+            source=pb2.Position(
+                latitude=-33.0351516, longitude=-71.5955963
+            ),
+            destination=pb2.Position(
+                latitude=-33.0348327, longitude=-71.5980458
+            ),
+            unit="km"
+        )
 
         print(f"{MessageToJson(message)}\n")
 
