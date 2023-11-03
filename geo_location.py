@@ -1,8 +1,13 @@
 class Position:
     def __init__(self, latitude, longitude, altitude):
-        self._latitude = latitude
-        self._longitude = longitude
-        self._altitude = altitude
+        if latitude > 90.0 or latitude < -90.0:
+            raise ValueError("Latitude out of range!")
+        if longitude > 180.0 or longitude < -180.0:
+            raise ValueError("Longitude out of range!")
+
+        self._latitude = float(latitude)
+        self._longitude = float(longitude)
+        self._altitude = float(altitude)
 
     def __dict__(self):
         return {
